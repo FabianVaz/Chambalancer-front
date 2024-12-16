@@ -9,7 +9,7 @@ const ClientProfilePage = () => {
   const [loading, setLoading] = useState(true); // Estado de carga
   const navigate = useNavigate();
   const apiURL = process.env.REACT_APP_API;
-console.log(`Api url: ${apiURL}`);
+
 
   // Obtener información del cliente y sus reseñas desde el backend
   const fetchClientData = async () => {

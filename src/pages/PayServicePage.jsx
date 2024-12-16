@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
+const apiURL = process.env.REACT_APP_API;
+
 const ProductDisplay = ({ servicio, solicitud }) => {
   const handleCheckout = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/stripe/create-checkout-session", {
+      const response = await fetch(`${apiURL}/api/stripe/create-checkout-session`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

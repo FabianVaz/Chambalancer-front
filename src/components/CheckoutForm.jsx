@@ -4,6 +4,7 @@ import { PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js"
 const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
+  const apiURL = process.env.REACT_APP_API;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -16,7 +17,7 @@ const CheckoutForm = () => {
       elements,
       confirmParams: {
         // Redirige a tu página de éxito o muestra un mensaje
-        return_url: "http://localhost:3000/my-requests", // Opcional: si decides habilitar redirecciones
+        return_url: `${apiURL}/api/my-requests`, // Opcional: si decides habilitar redirecciones
       },
     });
 
