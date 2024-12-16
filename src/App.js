@@ -13,13 +13,10 @@ import MyRequestsPage from "./pages/MyRequestsPage";
 import ServiceProviderPage from "./pages/ServiceProviderPage";
 import EditServicePage from "./pages/EditServicePage";
 import ProviderRequestPage from "./pages/ProviderRequestPage";
-import { initMercadoPago } from "@mercadopago/sdk-react";
 import PayServicePage from "./pages/PayServicePage";
-import UpdateRequestStatusPage from "./pages/UpdateRequestStatusPage";
 import ClientProfilePage from "./pages/ClientProfilePage";
 import CreateReviewPage from "./pages/CreateReviewPage";
 import DashboardPage from "./pages/DashboarPage";
-import ReturnPage from "./pages/ReturnPage";
 import './chartConfig';
 
 
@@ -41,12 +38,10 @@ const App = () => {
         <Route path="/service-provider/:serviceId" element={ <ServiceProviderPage />} />
         <Route path="/edit-service/:serviceId" element={ <EditServicePage />} />
         <Route path="/provider-requests" element={ <ProviderRequestPage />} />
-        <Route path="/update-status" element={<UpdateRequestStatusPage />} />
         <Route path="/client-profile" element={<ClientProfilePage />} />
         <Route path="/create-review/:requestId" element={<CreateReviewPage />} />
         <Route path="/admin" element={<DashboardPage />} />
         <Route path="/pay-service/:id" element={<PayServicePage />} />
-        <Route path="/return" element={<ReturnPage />} />
       </Routes>
     </Router>
   );
