@@ -137,10 +137,6 @@ console.log(`Api url: ${apiURL}`);
               key={service._id}
               className="bg-white shadow-md rounded p-4 mb-4 flex justify-between items-center"
             >
-              {/* Placeholder de imagen */}
-              <div className="bg-gray-200 w-16 h-16 rounded flex items-center justify-center">
-                <span className="text-gray-400">Img</span>
-              </div>
               {/* Detalles del servicio */}
               <div className="flex-1 ml-4">
                 <h2 className="font-bold text-lg">{service.nombre}</h2>

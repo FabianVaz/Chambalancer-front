@@ -10,17 +10,31 @@ const RequestServicePage = () => {
   // Obtén `serviceId` de la `state` enviada desde ServiceDetailsPage
   const serviceId = location.state?.serviceId;
 
-
-  if (!serviceId) {
-    console.error("No se recibió el serviceId");
-  }
-
   const [formData, setFormData] = useState({
     lugar: "",
     presupuesto: "",
-    descripcion: "", // Cambiado a `descripcion` sin tilde
+    descripcion: "",
   });
   const [error, setError] = useState("");
+
+  // Validar si `serviceId` no está disponible
+  if (!serviceId) {
+    console.error("No se recibió el serviceId");
+    return (
+      <div className="min-h-screen bg-gray-100 flex justify-center items-center">
+        <p className="text-red-500">
+          Error: No se encontró el identificador del servicio. Por favor, regresa
+          a la página anterior.
+        </p>
+        <button
+          onClick={() => navigate(-1)}
+          className="bg-blue-500 text-white py-2 px-4 rounded mt-4"
+        >
+          Regresar
+        </button>
+      </div>
+    );
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,7 +57,7 @@ const RequestServicePage = () => {
       servicioId: serviceId, // Usar el serviceId recibido
       lugar: formData.lugar,
       presupuesto: formData.presupuesto,
-      descripcion: formData.descripcion, // Cambiado a "descripcion"
+      descripcion: formData.descripcion,
     };
 
     console.log("Datos enviados al backend:", data);
@@ -51,7 +65,7 @@ const RequestServicePage = () => {
     try {
       const response = await axiosInstance.post(`${apiURL}/api/requests`, data);
       console.log("Solicitud creada:", response.data);
-      navigate("/my-requests");
+      navigate("/my-requests"); // Redirige a "Mis Solicitudes"
     } catch (error) {
       console.error(
         "Error al enviar la solicitud:",
@@ -115,7 +129,7 @@ const RequestServicePage = () => {
           <div className="mb-4">
             <label className="block text-gray-700">Descripción</label>
             <textarea
-              name="descripcion" // Cambiado a `descripcion` sin tilde
+              name="descripcion"
               value={formData.descripcion}
               onChange={handleChange}
               className="w-full p-2 border border-gray-300 rounded"

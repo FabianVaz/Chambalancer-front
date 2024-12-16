@@ -19,9 +19,9 @@ import UpdateRequestStatusPage from "./pages/UpdateRequestStatusPage";
 import ClientProfilePage from "./pages/ClientProfilePage";
 import CreateReviewPage from "./pages/CreateReviewPage";
 import DashboardPage from "./pages/DashboarPage";
+import ReturnPage from "./pages/ReturnPage";
 import './chartConfig';
 
-initMercadoPago('TEST-97b44964-a43e-46f9-890f-450cd7ee9d2c'); // Reemplaza con tu Public Key
 
 const App = () => {
   return (
@@ -41,11 +41,12 @@ const App = () => {
         <Route path="/service-provider/:serviceId" element={ <ServiceProviderPage />} />
         <Route path="/edit-service/:serviceId" element={ <EditServicePage />} />
         <Route path="/provider-requests" element={ <ProviderRequestPage />} />
-        <Route path="/pay-service/:id" element={<PayServicePage />} />
         <Route path="/update-status" element={<UpdateRequestStatusPage />} />
         <Route path="/client-profile" element={<ClientProfilePage />} />
         <Route path="/create-review/:requestId" element={<CreateReviewPage />} />
         <Route path="/admin" element={<DashboardPage />} />
+        <Route path="/pay-service/:id" element={<PayServicePage />} />
+        <Route path="/return" element={<ReturnPage />} />
       </Routes>
     </Router>
   );

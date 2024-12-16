@@ -41,23 +41,18 @@ const MyRequestsPage = () => {
     }
   };
 
-  const handlePaymentRequest = async (requestId) => {
-    try {
-      const newState = 5; // Estado "Pagada"
-      await axiosInstance.patch(`${apiURL}/api/requests/${requestId}`, { estado: newState });
+  const handlePaymentRequest = (request) => {
+    // Navegar a PayServicePage con los datos de la solicitud y el servicio
+    navigate(`/pay-service/${request._id}`, {
+      state: {
+        solicitud: request,
+        servicio: request.servicio,
+      },
+    });
+    console.log("Navegando con datos:", request);
 
-      setRequests((prevRequests) =>
-        prevRequests.map((request) =>
-          request._id === requestId ? { ...request, estado: newState } : request
-        )
-      );
-
-      navigate(`/pay-service/${requestId}`);
-    } catch (error) {
-      console.error("Error al actualizar la solicitud:", error);
-      alert("Hubo un error al actualizar la solicitud. Inténtalo de nuevo.");
-    }
   };
+  
 
   const handleReviewRequest = async (requestId) => {
     try {
@@ -126,13 +121,13 @@ const MyRequestsPage = () => {
                   </button>
                 )}
                 {request.estado === 2 && (
-                  <button
-                    onClick={() => handlePaymentRequest(request._id)}
-                    className="bg-green-500 text-white py-2 px-4 rounded"
-                  >
-                    Generar Pago
-                  </button>
-                )}
+ <button
+ onClick={() => handlePaymentRequest(request)}
+ className="bg-green-500 text-white py-2 px-4 rounded"
+>
+ Generar Pago
+</button>
+)}
                 {request.estado === 6 && (
                   <button
                     onClick={() => handleReviewRequest(request._id)}
