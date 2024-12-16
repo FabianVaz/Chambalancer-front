@@ -5,6 +5,7 @@ import axiosInstance from "../services/axiosConfig";
 const MyRequestsPage = () => {
   const [requests, setRequests] = useState([]);
   const navigate = useNavigate();
+  const apiURL = process.env.REACT_APP_API;
 
   const estadoTexto = {
     1: "Pendiente",
@@ -18,7 +19,7 @@ const MyRequestsPage = () => {
 
   const fetchRequests = async () => {
     try {
-      const response = await axiosInstance.get("/requests");
+      const response = await axiosInstance.get(`${apiURL}/api/requests`);
       const activeRequests = response.data.filter((request) => request.estado !== 4);
       setRequests(activeRequests);
     } catch (error) {
@@ -32,7 +33,7 @@ const MyRequestsPage = () => {
     }
 
     try {
-      await axiosInstance.patch(`/requests/${requestId}`, { estado: 4 });
+      await axiosInstance.patch(`${apiURL}/api/requests/${requestId}`, { estado: 4 });
       setRequests((prevRequests) => prevRequests.filter((request) => request._id !== requestId));
     } catch (error) {
       console.error("Error al cancelar la solicitud:", error);
@@ -43,7 +44,7 @@ const MyRequestsPage = () => {
   const handlePaymentRequest = async (requestId) => {
     try {
       const newState = 5; // Estado "Pagada"
-      await axiosInstance.patch(`/requests/${requestId}`, { estado: newState });
+      await axiosInstance.patch(`${apiURL}/api/requests/${requestId}`, { estado: newState });
 
       setRequests((prevRequests) =>
         prevRequests.map((request) =>
@@ -61,7 +62,7 @@ const MyRequestsPage = () => {
   const handleReviewRequest = async (requestId) => {
     try {
       const newState = 7; // Estado "Reseñada"
-      await axiosInstance.patch(`/requests/${requestId}`, { estado: newState });
+      await axiosInstance.patch(`${apiURL}/api/requests/${requestId}`, { estado: newState });
 
       // Actualizar localmente el estado de la solicitud
       setRequests((prevRequests) =>

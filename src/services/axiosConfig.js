@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Crear una instancia de Axios
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:5000/api', // Cambia la URL base según tu configuración
+    baseURL: process.env.API_url, // Cambia la URL base según tu configuración
 });
 
 // Interceptor para agregar el token automáticamente

@@ -14,12 +14,13 @@ const EditServicePage = () => {
   });
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
+  const apiURL = process.env.REACT_APP_API;
 
   // Obtener detalles del servicio desde el backend
   useEffect(() => {
     const fetchServiceDetails = async () => {
       try {
-        const response = await axiosInstance.get(`/services/${serviceId}`);
+        const response = await axiosInstance.get(`${apiURL}/api/services/${serviceId}`);
         setService(response.data);
         setFormData({
           nombre: response.data.nombre || "",
@@ -46,7 +47,7 @@ const EditServicePage = () => {
     e.preventDefault();
     console.log("Datos enviados al backend:", formData); // Para depuración
     try {
-      const response = await axiosInstance.put(`/services/${serviceId}`, formData);
+      const response = await axiosInstance.put(`${apiURL}/api/services/${serviceId}`, formData);
       setMessage("Servicio actualizado exitosamente");
       setTimeout(() => {
         navigate(`/service-provider/${serviceId}`); // Redirigir

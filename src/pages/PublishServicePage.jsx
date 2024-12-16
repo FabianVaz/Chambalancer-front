@@ -13,6 +13,7 @@ const PublishServicePage = () => {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const navigate = useNavigate();
+    const apiURL = process.env.REACT_APP_API;
 
     const handleChange = (e) => {
         setFormData({
@@ -34,7 +35,7 @@ const PublishServicePage = () => {
         }
 
         try {
-            const response = await axiosInstance.post('http://localhost:5000/api/services', formData, {
+            const response = await axiosInstance.post(`${apiURL}/api/services`, formData, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`, // Asegúrate de tener un token válido
                 },

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axiosInstance from '../services/axiosConfig';
 import { useNavigate } from 'react-router-dom';
 
+
+
 const LoginPage = () => {
     const [formData, setFormData] = useState({
         correo: '',
@@ -17,13 +19,16 @@ const LoginPage = () => {
         });
     };
 
+    const apiURL = process.env.REACT_APP_API;
+    console.log(`Api url: ${apiURL}`);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
 
         try {
             // Petición al backend para iniciar sesión
-            const response = await axiosInstance.post('http://localhost:5000/api/auth/login', {
+            const response = await axiosInstance.post(`${apiURL}/api/auth/login`, {
                 correo: formData.correo,
                 contraseña: formData.contraseña,
             });

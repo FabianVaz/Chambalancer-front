@@ -8,12 +8,13 @@ const ServiceDetailsPage = () => {
   const [service, setService] = useState(null); // Estado para los detalles del servicio
   const [reviews, setReviews] = useState([]); // Estado para las reseñas
   const [error, setError] = useState(false); // Estado para manejar errores
+  const apiURL = process.env.REACT_APP_API;
 
   // Obtener los detalles del servicio desde el backend
   useEffect(() => {
     const fetchServiceDetails = async () => {
       try {
-        const response = await axiosInstance.get(`/services/${serviceId}`);
+        const response = await axiosInstance.get(`${apiURL}/api/services/${serviceId}`);
         setService(response.data);
       } catch (error) {
         console.error("Error al obtener los detalles del servicio:", error);
@@ -23,7 +24,7 @@ const ServiceDetailsPage = () => {
 
     const fetchReviews = async () => {
       try {
-        const response = await axiosInstance.get(`/services/${serviceId}/reviews`);
+        const response = await axiosInstance.get(`${apiURL}/api/services/${serviceId}/reviews`);
         console.log("Reseñas obtenidas:", response.data); // Log para depurar
         setReviews(response.data || []); // Asegúrate de manejar un array vacío si no hay reseñas
       } catch (error) {
@@ -106,7 +107,7 @@ const ServiceDetailsPage = () => {
                 <p className="text-sm text-gray-600">Puntuación: {review.puntuacion || "Sin puntuación"}</p>
                 {review.imagen && (
                   <img
-                    src={`http://localhost:5000/${review.imagen.replace(/^\/+/, "")}`}
+                    src={`${apiURL}/${review.imagen.replace(/^\/+/, "")}`}
                     alt="Reseña"
                     className="mt-4 w-full max-w-md rounded"
                   />

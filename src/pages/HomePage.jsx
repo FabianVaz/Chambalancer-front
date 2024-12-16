@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axiosInstance from "../services/axiosConfig";
 import { useNavigate } from "react-router-dom";
 
+
 const HomePage = () => {
   const [services, setServices] = useState([]); // Lista completa de servicios
   const [filteredServices, setFilteredServices] = useState([]); // Servicios filtrados
@@ -10,11 +11,15 @@ const HomePage = () => {
   const [categories, setCategories] = useState([]); // Lista de categorías
   const [isMenuOpen, setIsMenuOpen] = useState(false); // Controla el menú desplegable
   const navigate = useNavigate();
+  const apiURL = process.env.REACT_APP_API;
+console.log(`Api url: ${apiURL}`);
+
 
   // Función para obtener servicios del backend
   const fetchServices = async () => {
     try {
-      const response = await axiosInstance.get("http://localhost:5000/api/services");
+      const response = await axiosInstance.get(`${apiURL}/api/services`);
+      
       setServices(response.data);
       setFilteredServices(response.data); // Inicializa con todos los servicios
       const uniqueCategories = [

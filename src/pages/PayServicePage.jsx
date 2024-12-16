@@ -6,9 +6,10 @@ initMercadoPago("TEST-97b44964-a43e-46f9-890f-450cd7ee9d2c");
 
 const PayServicePage = () => {
   const [challengeData, setChallengeData] = useState(null);
+  const apiURL = process.env.REACT_APP_API;
 
   const initialization = {
-    amount: 500, // Aquí puedes establecer el monto dinámico que necesites
+    amount: 5, // Aquí puedes establecer el monto dinámico que necesites
   };
 
   const renderStatusScreenBrick = (paymentId, threeDsInfo) => {
@@ -22,7 +23,7 @@ const PayServicePage = () => {
   const onSubmit = async (formData) => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/payments/process_payment",
+        `${apiURL}/api/payments/process_payment`,
         {
           method: "POST",
           headers: {

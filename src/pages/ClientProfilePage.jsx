@@ -8,17 +8,19 @@ const ClientProfilePage = () => {
   const [reviews, setReviews] = useState([]); // Lista de reseñas
   const [loading, setLoading] = useState(true); // Estado de carga
   const navigate = useNavigate();
+  const apiURL = process.env.REACT_APP_API;
+console.log(`Api url: ${apiURL}`);
 
   // Obtener información del cliente y sus reseñas desde el backend
   const fetchClientData = async () => {
     try {
       // Obtener información del cliente
-      const clientResponse = await axiosInstance.get("/auth/me");
+      const clientResponse = await axiosInstance.get(`${apiURL}/api/auth/me`);
       setClientInfo(clientResponse.data);
 
       // Obtener las reseñas del cliente
       const reviewsResponse = await axiosInstance.get(
-        `/reviews?clientId=${clientResponse.data._id}`
+        `${apiURL}/api/reviews?clientId=${clientResponse.data._id}`
       );
       setReviews(reviewsResponse.data);
     } catch (error) {
@@ -94,9 +96,9 @@ const ClientProfilePage = () => {
                   </p>
                   {review.imagen && (
   <div className="mt-4">
-    {console.log(`URL de la imagen generada: http://localhost:5000/${review.imagen.replace(/^\/+/, '')}`)}
+    {console.log(`URL de la imagen generada: ${apiURL}/${review.imagen.replace(/^\/+/, '')}`)}
     <img
-      src={`http://localhost:5000/${review.imagen.replace(/^\/+/, '')}`}
+      src={`${apiURL}/${review.imagen.replace(/^\/+/, '')}`}
       alt="Imagen de reseña"
       className="w-full max-w-sm rounded"
     />

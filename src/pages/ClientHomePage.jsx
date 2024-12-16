@@ -14,11 +14,13 @@ const ClientHomePage = () => {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const userMenuRef = useRef(null);
+  const apiURL = process.env.REACT_APP_API;
+console.log(`Api url: ${apiURL}`);
 
   // Obtener los servicios desde el backend
   const fetchServices = async () => {
     try {
-      const response = await axiosInstance.get("/services");
+      const response = await axiosInstance.get(`${apiURL}/api/services`);
       setServices(response.data);
       setFilteredServices(response.data);
 
@@ -34,7 +36,7 @@ const ClientHomePage = () => {
   // Obtener el nombre del cliente desde el backend
   const fetchClientName = async () => {
     try {
-      const response = await axiosInstance.get("/auth/me");
+      const response = await axiosInstance.get(`${apiURL}/api/auth/me`);
       setClientName(response.data.nombre.split(" ")[0]); // Usar solo el primer nombre
     } catch (error) {
       console.error("Error al obtener el nombre del cliente:", error);

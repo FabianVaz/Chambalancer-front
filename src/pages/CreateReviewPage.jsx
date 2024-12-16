@@ -5,6 +5,8 @@ import axiosInstance from "../services/axiosConfig";
 const CreateReviewPage = () => {
   const { requestId } = useParams(); // Obtén el ID de la solicitud desde la URL
   const navigate = useNavigate();
+  const apiURL = process.env.REACT_APP_API;
+console.log(`Api url: ${apiURL}`);
 
   const [reviewData, setReviewData] = useState({
     titulo: "",
@@ -41,14 +43,14 @@ const CreateReviewPage = () => {
     formData.append("requestId", requestId);
 
     try {
-        await axiosInstance.post("/reviews", formData, {
+        await axiosInstance.post(`${apiURL}/api/reviews`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
         });
 
         // Actualiza la solicitud
-        await axiosInstance.patch(`/requests/${requestId}`, { estado: 7 });
+        await axiosInstance.patch(`${apiURL}/api/requests/${requestId}`, { estado: 7 });
 
         alert("Reseña publicada exitosamente.");
         navigate("/my-requests");

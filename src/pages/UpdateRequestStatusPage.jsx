@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const UpdateRequestStatusPage = () => {
   const navigate = useNavigate();
+  const apiURL = process.env.REACT_APP_API;
 
   useEffect(() => {
     const updateRequestStatus = async () => {
@@ -15,7 +16,7 @@ const UpdateRequestStatusPage = () => {
       }
     
       try {
-        const response = await fetch(`http://localhost:5000/api/requests/${requestId}`, {
+        const response = await fetch(`${apiURL}/api/requests/${requestId}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",

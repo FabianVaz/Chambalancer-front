@@ -13,6 +13,9 @@ const ProviderRegisterPage = () => {
   const [message, setMessage] = useState(""); // Mensaje de error
   const navigate = useNavigate();
 
+  const apiURL = process.env.REACT_APP_API;
+
+
   // Manejo de cambios en los inputs
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -41,7 +44,7 @@ const ProviderRegisterPage = () => {
     }
 
     try {
-      await axiosInstance.post("http://localhost:5000/api/auth/register", {
+      await axiosInstance.post(`${apiURL}/api/auth/register`, {
         nombre: formData.nombre,
         correo: formData.correo,
         contraseña: formData.contraseña,

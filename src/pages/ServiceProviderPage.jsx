@@ -9,12 +9,13 @@ const ServiceProviderPage = () => {
   const [reviews, setReviews] = useState([]); // Estado para las reseñas
   const [error, setError] = useState(false); // Estado para manejar errores
   const [message, setMessage] = useState(""); // Mensaje de confirmación o error
+  const apiURL = process.env.REACT_APP_API;
 
   // Obtener los detalles del servicio desde el backend
   useEffect(() => {
     const fetchServiceDetails = async () => {
       try {
-        const response = await axiosInstance.get(`/services/${serviceId}`);
+        const response = await axiosInstance.get(`${apiURL}/api/services/${serviceId}`);
         setService(response.data);
       } catch (error) {
         console.error("Error al obtener los detalles del servicio:", error);
@@ -24,7 +25,7 @@ const ServiceProviderPage = () => {
 
     const fetchReviews = async () => {
       try {
-        const response = await axiosInstance.get(`/services/${serviceId}/reviews`);
+        const response = await axiosInstance.get(`${apiURL}/api/services/${serviceId}/reviews`);
         setReviews(response.data || []); // Manejar un array vacío si no hay reseñas
       } catch (error) {
         console.error("Error al obtener las reseñas:", error);
@@ -41,7 +42,7 @@ const ServiceProviderPage = () => {
     if (!confirmDelete) return;
 
     try {
-      await axiosInstance.delete(`/services/${serviceId}`);
+      await axiosInstance.delete(`${apiURL}/api/services/${serviceId}`);
       setMessage("Servicio eliminado exitosamente.");
       setTimeout(() => navigate("/provider-profile"), 2000); // Redirigir al perfil del proveedor después de 2 segundos
     } catch (error) {

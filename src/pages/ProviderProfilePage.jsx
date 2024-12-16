@@ -9,6 +9,7 @@ const ProviderProfilePage = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const menuRef = useRef(null);
+  const apiURL = process.env.REACT_APP_API;
 
   // Manejo de cierre de sesión
   const handleLogout = () => {
@@ -21,11 +22,11 @@ const ProviderProfilePage = () => {
     const fetchProviderData = async () => {
       try {
         // Obtener los datos del usuario actual
-        const userResponse = await axiosInstance.get('/auth/me');
+        const userResponse = await axiosInstance.get(`${apiURL}/api/auth/me`);
         setUser(userResponse.data);
 
         // Obtener los servicios del proveedor
-        const servicesResponse = await axiosInstance.get('/services/my-services');
+        const servicesResponse = await axiosInstance.get(`${apiURL}/api/services/my-services`);
         const lastTwoServices = servicesResponse.data.slice(0, 2); // Últimos dos servicios
         setServices(lastTwoServices);
       } catch (error) {

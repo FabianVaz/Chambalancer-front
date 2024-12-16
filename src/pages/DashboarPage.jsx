@@ -5,11 +5,13 @@ import { Bar, Pie, Line } from "react-chartjs-2";
 const DashboardPage = () => {
   const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const apiURL = process.env.REACT_APP_API;
+console.log(`Api url: ${apiURL}`);
 
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        const response = await axiosInstance.get("/admin/dashboard");
+        const response = await axiosInstance.get(`${apiURL}/api/admin/dashboard`);
         setDashboardData(response.data);
       } catch (error) {
         console.error("Error al cargar el dashboard:", error);

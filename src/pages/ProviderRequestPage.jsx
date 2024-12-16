@@ -4,12 +4,13 @@ import axiosInstance from "../services/axiosConfig";
 const ProviderRequestPage = () => {
   const [requests, setRequests] = useState([]); // Estado para almacenar las solicitudes
   const [error, setError] = useState(false); // Estado para manejar errores
+  const apiURL = process.env.REACT_APP_API;
 
   // Obtener solicitudes asociadas al proveedor autenticado
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const response = await axiosInstance.get("/requests/provider");
+        const response = await axiosInstance.get(`${apiURL}/api/requests/provider`);
         // Filtrar solicitudes para excluir las canceladas y rechazadas
         const filteredRequests = response.data.filter(
           (request) => request.estado !== 3 && request.estado !== 4
@@ -35,7 +36,7 @@ const ProviderRequestPage = () => {
       );
       if (!confirmAction) return;
 
-      await axiosInstance.patch(`/requests/${requestId}`, { estado: newState });
+      await axiosInstance.patch(`${apiURL}/api/requests/${requestId}`, { estado: newState });
 
       // Actualizar solicitudes y excluir las canceladas y rechazadas
       setRequests((prevRequests) =>

@@ -5,9 +5,11 @@ import axiosInstance from "../services/axiosConfig";
 const RequestServicePage = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const apiURL = process.env.REACT_APP_API;
 
   // Obtén `serviceId` de la `state` enviada desde ServiceDetailsPage
   const serviceId = location.state?.serviceId;
+
 
   if (!serviceId) {
     console.error("No se recibió el serviceId");
@@ -47,7 +49,7 @@ const RequestServicePage = () => {
     console.log("Datos enviados al backend:", data);
 
     try {
-      const response = await axiosInstance.post("/requests", data);
+      const response = await axiosInstance.post(`${apiURL}/api/requests`, data);
       console.log("Solicitud creada:", response.data);
       navigate("/my-requests");
     } catch (error) {
