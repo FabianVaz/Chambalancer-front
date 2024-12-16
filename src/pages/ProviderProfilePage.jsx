@@ -4,7 +4,7 @@ import axiosInstance from '../services/axiosConfig';
 
 const ProviderProfilePage = () => {
   const [user, setUser] = useState({ nombre: '', correo: '' }); // Datos del proveedor
-  const [services, setServices] = useState([]); // Últimos dos servicios publicados
+  const [services, setServices] = useState([]); // Servicios publicados
   const [menuOpen, setMenuOpen] = useState(false); // Estado para el menú desplegable
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ const ProviderProfilePage = () => {
 
         // Obtener los servicios del proveedor
         const servicesResponse = await axiosInstance.get(`${apiURL}/api/services/my-services`);
-        setServices(lastTwoServices);
+        setServices(servicesResponse.data); // Mostrar todos los servicios
       } catch (error) {
         console.error('Error al cargar datos:', error.response?.data || error.message);
         setError('Hubo un problema al cargar los datos. Inténtalo más tarde.');
