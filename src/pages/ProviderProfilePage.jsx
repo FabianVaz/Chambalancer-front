@@ -27,7 +27,6 @@ const ProviderProfilePage = () => {
 
         // Obtener los servicios del proveedor
         const servicesResponse = await axiosInstance.get(`${apiURL}/api/services/my-services`);
-        const lastTwoServices = servicesResponse.data.slice(0, 2); // Últimos dos servicios
         setServices(lastTwoServices);
       } catch (error) {
         console.error('Error al cargar datos:', error.response?.data || error.message);
